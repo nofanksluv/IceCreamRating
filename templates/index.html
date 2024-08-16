@@ -1,1 +1,36 @@
-
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Home</title>
+  <link rel='stylesheet' href='static/style.css'>
+</head>
+<body>
+  <h1>Rate Your Ice Cream!</h1>
+  <hr>
+  <h2>Our top flavours!</h2>
+  <div class="top_5">
+    {% for item in top_5 %}
+      <img src="{{ url_for('static', filename='images/' + item['flavour_name'].lower() + '.jpg') }}" alt="{{ item['flavour_name'] }}" width="200"><br>
+      <a href="{{ url_for('profile', flavour_id=item['flavour_id']) }}">
+        {{ item['flavour_name'] }}
+      </a>
+      <p>Rating: {{ item["rating"] }}</p><br>
+    {% endfor %}
+  </div>
+  <h2>Discover the available flavours!</h2>
+  <form method="GET" action="{{ url_for('search') }}">
+    <input type="text" id="flavour_name" name="flavour_name" placeholder="Search...">
+    <input type="submit" value="Search">
+  </form>
+  <ul>
+    {% for flavour in flavours %}
+    <li>
+      <a href="{{ url_for('profile', flavour_id=flavour['flavour_id']) }}">
+        {{ flavour['flavour_name'] }}
+      </a>
+    </li>
+    {% endfor %}
+  </ul>
+</body>
+</html>
