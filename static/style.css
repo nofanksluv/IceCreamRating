@@ -3,6 +3,10 @@ body{
   background-color: #cdbfa7;
 }
 
+.page_name{
+  text-decoration: none;
+}
+
 h1{
   font-size: 40px;
   margin-left: 20px;
@@ -19,6 +23,15 @@ ol {
 
 a {
   color: black;
+}
+
+button{
+  font-family: "Monaco", monospace;
+  background-color: #a59578;
+  font-weight: bold;
+  margin-left: 10px;
+  margin-top: 10px;
+  border: none;
 }
 
 .top_5 {
