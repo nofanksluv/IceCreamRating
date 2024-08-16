@@ -1,0 +1,91 @@
+body{
+  font-family: "Monaco", monospace;
+  background-color: #cdbfa7;
+}
+
+h1{
+  font-size: 40px;
+  margin-left: 20px;
+}
+
+h2 {
+  margin-left: 20px;
+}
+
+ol {
+  text-align: center;
+  font-weight: bold;
+}
+
+a {
+  color: black;
+}
+
+.top_5 {
+  text-align: center;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  algin-items: center;
+  margin: 20px;
+}
+
+.profile_picture {
+  height: 200px;
+  align-self: stretch;
+}
+
+iframe {
+  width: 90%;
+  height: 500px;
+  display: block;
+  margin: 0 auto;
+}
+
+form {
+  margin-left: 20px;
+}
+
+.rating {
+  border: none;
+  float: left;
+}
+
+.rating>input {
+  display: none;
+}
+
+.rating>label:before {
+  margin: 5px;
+  font-size: 1.25em;
+  font-family: FontAwesome;
+  display: inline-block;
+  content: "★";
+}
+
+.rating>label {
+  color: #ddd;
+  float: right;
+}
+
+.rating>input:checked~label, .rating:not(:checked)>label:hover, .rating:not(:checked)>label:hover~label {
+  color: #ffc800;
+}
+
+
+.rating>input:checked+label:hover,
+.rating>input:checked~label:hover,
+.rating>label:hover~input:checked~label,
+.rating>input:checked~label:hover~label {
+  color: #f7e192;
+}
+
+input[type="submit"] {
+  background-color: #e87a30;
+  border: 2px solid black;
+  border-radius: 15px;
+}
