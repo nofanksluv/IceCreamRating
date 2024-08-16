@@ -9,9 +9,7 @@ flavours = []
 def home():
     conn = sqlite3.connect("ice_cream_rating.db")
     c = conn.cursor()
-    c.execute("""
-    SELECT * FROM "ice_cream_rating"
-    """)
+    c.execute("SELECT * FROM ice_cream_rating")
     rows = c.fetchall()
     column_names = [description[0] for description in c.description]
     conn.close()
@@ -23,18 +21,21 @@ def home():
 
 @app.route('/search', methods=["GET"])
 def search():
-    flavour_name = request.args.get("flavour_name").capitalize()
-    conn = sqlite3.connect("ice_cream_rating.db")
-    c = conn.cursor()
-    c.execute("""
-    SELECT * FROM ice_cream_rating WHERE flavour_name = ?
-    """, (flavour_name,))
-    row = c.fetchone()
-
-    if row:
-        row = list(row)
-        index = row[0]
-        return redirect(url_for("profile", flavour_id=index))
+    if not None:
+        flavour_name = request.args.get("flavour_name")
+        flavour_name = flavour_name.split()
+        flavour_name = [word.capitalize() for word in flavour_name]
+        flavour_name = " ".join(flavour_name)
+    
+        conn = sqlite3.connect("ice_cream_rating.db")
+        c = conn.cursor()
+        c.execute("SELECT * FROM ice_cream_rating WHERE flavour_name = ?", (flavour_name,))
+        row = c.fetchone()
+    
+        if row:
+            row = list(row)
+            index = row[0]
+            return redirect(url_for("profile", flavour_id=index))
 
     return redirect(url_for("home"))
 
@@ -42,9 +43,7 @@ def search():
 def profile(flavour_id):
     conn = sqlite3.connect("ice_cream_rating.db")
     c = conn.cursor()
-    c.execute("""
-    SELECT  * FROM ice_cream_rating WHERE flavour_id = ?
-    """, (flavour_id,))
+    c.execute("SELECT  * FROM ice_cream_rating WHERE flavour_id = ?", (flavour_id,))
     info = c.fetchone()
 
     if info:
@@ -59,16 +58,14 @@ def profile(flavour_id):
 @app.route("/submit_rating", methods=["POST"])
 def submit_rating():
     flavour_id = request.form.get("flavour_id")
-
+    
     conn = sqlite3.connect("ice_cream_rating.db")
     c = conn.cursor()
-    c.execute("""
-    SELECT  * FROM ice_cream_rating WHERE flavour_id = ?
-    """, (flavour_id,))
+    c.execute("SELECT  * FROM ice_cream_rating WHERE flavour_id = ?", (flavour_id,))
     info = c.fetchone()
     column_names = [description[0] for description in c.description]
     info = dict(zip(column_names, info))
-
+    
     rating = request.form.get("rating")
     if rating is not None:
         rating = float(rating)
@@ -81,17 +78,15 @@ def submit_rating():
         total = current_rating*no_of_ratings + rating
     else:
         total = rating
-
+        
     average  = round(float(total / (no_of_ratings + 1)), 2)
     no_of_ratings += 1
-
-    c.execute("""
-    UPDATE ice_cream_rating SET rating = ?, no_of_ratings = ? WHERE flavour_id = ?
-    """, (average, no_of_ratings, info["flavour_id"]))
+    
+    c.execute("UPDATE ice_cream_rating SET rating = ?, no_of_ratings = ? WHERE flavour_id = ?", (average, no_of_ratings, info["flavour_id"]))
     conn.commit()
     conn.close()
-
+    
     return redirect(url_for("profile", flavour_id=flavour_id))
 
 if __name__ == '__main__':
-  app.run(host='0.0.0.0', port=4500)
+  app.run(host='0.0.0.0', port=5000)
