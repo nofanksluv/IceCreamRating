@@ -6,9 +6,11 @@
   <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
+  <!-- A home button to return to the main page -->
   <button class="button"><a href="{{ url_for('home') }}" class="page_name">Rate Your Ice Cream!</a></button>
   <div class="container">
     <div>
+      <!-- Displays the flavour's name, description, and image -->
      <h1>{{ info["flavour_name"] }}</h1>
      <p>{{ info["desc"] }}</p>
     </div>
@@ -16,9 +18,11 @@
   </div>
   <hr>
   <h2>Make the Recipe!</h2>
+  <!-- Embedded webpage of the recipe -->
   <iframe src="{{ info['recipe_link'] }}" title="recipe"></iframe>
   <br>
   <h2>Tell us what you think about the flavour!</h2>
+  <!-- Rating mechanism -->
   <form method="POST" action="{{ url_for('submit_rating') }}">
     <div class="rating">
       <input type="radio" id="star5" name="rating" value="5">
@@ -32,8 +36,10 @@
       <input type="radio" id="star1" name="rating" value="1">
       <label for="star1"></label>
     </div><br><br>
+    <!-- Obtains the flavour's ID -->
     <input type="hidden" id="flavour_id" name="flavour_id" value="{{ info['flavour_id'] }}">
     <input type="submit" value="Submit My Rating">
+    <!-- Displays the average rating and the number of ratings -->
     <label>Average: {{ info["rating"] }} ({{ info["no_of_ratings"] }})</label>
   </form>
   <br>
