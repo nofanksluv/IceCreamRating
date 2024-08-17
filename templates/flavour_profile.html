@@ -17,9 +17,15 @@
     <img src="{{ url_for('static', filename='images/' + info['flavour_name'].lower() + '.jpg') }}" alt="{{ info['flavour_name'] }}" class="profile_picture">
   </div>
   <hr>
-  <h2>Make the Recipe!</h2>
-  <!-- Embedded webpage of the recipe -->
-  <iframe src="{{ info['recipe_link'] }}" title="recipe"></iframe>
+  <div class="recipe">
+    <h2>Make the Recipe!</h2>
+    <!-- Embedded webpage of the recipe -->
+    <iframe src="{{ info['recipe_link'] }}" title="recipe"></iframe>
+    <br>
+    <div>
+      <button><a href="{{ info['recipe_link'] }}">Recipe Link</a></button>
+    </div>
+  </div>
   <br>
   <h2>Tell us what you think about the flavour!</h2>
   <!-- Rating mechanism -->
@@ -42,6 +48,12 @@
     <!-- Displays the average rating and the number of ratings -->
     <label>Average: {{ info["rating"] }} ({{ info["no_of_ratings"] }})</label>
   </form>
+  <br>
+  <br>
+  <div class="navigate">
+    <button><a href="{{ url_for('profile', flavour_id=info['flavour_id'] | int - 1) }}">&lt;&lt;</a></button>
+    <button><a href="{{ url_for('profile', flavour_id=info['flavour_id'] | int + 1) }}">&gt;&gt;</a></button>
+  </div>
   <br>
   <br>
 </body>
