@@ -29,9 +29,13 @@ button{
   font-family: "Monaco", monospace;
   background-color: #a59578;
   font-weight: bold;
+  border: none;
+  text-decoration: none;
+}
+
+.home {
   margin-left: 10px;
   margin-top: 10px;
-  border: none;
 }
 
 .top_5 {
@@ -57,6 +61,12 @@ iframe {
   height: 500px;
   display: block;
   margin: 0 auto;
+}
+
+.recipe {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 form {
@@ -101,4 +111,15 @@ input[type="submit"] {
   background-color: #e87a30;
   border: 2px solid black;
   border-radius: 15px;
+}
+
+.navigate {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.navigate a {
+  text-decoration: none;
+  font-size: 20px;
 }
