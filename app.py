@@ -10,7 +10,7 @@ def home():
     # Retrieve data from database
     conn = sqlite3.connect("ice_cream_rating.db")
     c = conn.cursor()
-    c.execute("SELECT * FROM ice_cream_rating")
+    c.execute("SELECT * FROM ice_cream_rating;")
     rows = c.fetchall()
     column_names = [description[0] for description in c.description]
     conn.close()
@@ -33,7 +33,7 @@ def search():
         # Search through the database for a record that includes the name
         conn = sqlite3.connect("ice_cream_rating.db")
         c = conn.cursor()
-        c.execute("SELECT * FROM ice_cream_rating WHERE flavour_name = ?", (flavour_name,))
+        c.execute("SELECT * FROM ice_cream_rating WHERE flavour_name = ?;", (flavour_name,))
         row = c.fetchone()
 
         # Redirects user to the page requested if exists
@@ -50,7 +50,7 @@ def profile(flavour_id):
     # Retrieves information from the record with the specified ID
     conn = sqlite3.connect("ice_cream_rating.db")
     c = conn.cursor()
-    c.execute("SELECT  * FROM ice_cream_rating WHERE flavour_id = ?", (flavour_id,))
+    c.execute("SELECT  * FROM ice_cream_rating WHERE flavour_id = ?;", (flavour_id,))
     info = c.fetchone()
 
     if info:
@@ -72,7 +72,7 @@ def submit_rating():
     # Retrieves the record of that flavour in the database
     conn = sqlite3.connect("ice_cream_rating.db")
     c = conn.cursor()
-    c.execute("SELECT  * FROM ice_cream_rating WHERE flavour_id = ?", (flavour_id,))
+    c.execute("SELECT  * FROM ice_cream_rating WHERE flavour_id = ?;", (flavour_id,))
     info = c.fetchone()
     column_names = [description[0] for description in c.description]
     info = dict(zip(column_names, info))
@@ -96,7 +96,7 @@ def submit_rating():
     no_of_ratings += 1
 
     # Update the database
-    c.execute("UPDATE ice_cream_rating SET rating = ?, no_of_ratings = ? WHERE flavour_id = ?", (average, no_of_ratings, info["flavour_id"]))
+    c.execute("UPDATE ice_cream_rating SET rating = ?, no_of_ratings = ? WHERE flavour_id = ?;", (average, no_of_ratings, info["flavour_id"]))
     conn.commit()
     conn.close()
     
